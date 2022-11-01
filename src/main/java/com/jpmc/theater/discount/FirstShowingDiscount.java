@@ -15,5 +15,4 @@ public class FirstShowingDiscount implements Discount{
         return new AppliedDiscount(3.0, DiscountCode.FIRSTSHOWING);
     }
 
-
 }

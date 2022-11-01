@@ -29,23 +29,17 @@ This is a poorly written application, and we're expecting the candidate to great
 * We want to print the movie schedule with simple text & json format
 
 ## Developer Log
-  * First thing I needed to do was separate the business logic from the POJOs, so I split them into the standard
-  entity/repo/service classes.
-  * I needed to deal with data storage. Initially I thought about using a H2 database but decided against
-  it due to time restraints. It would be much easier to debug in memory lists than a H2 database.
-  * Next was dealing with the discounts. I needed a way to organize the discounts on the same layer. First I had to 
-remove all of the discounts on separate - that meant removing the discounts in the Movie entity and the discounts in reservation.
-  * After some thinking, I designed a discount system based on a discount interface. That way I could have
- all of the discounts I needed based on the interface they implemented. It would be easy to add new ones or replace old ones.
-  * That required adding Spring boot, so I messed around with the pom and project structure a bit.
-At this point, I added H2 with an application-test.yml file and the spring-boot dependency but
-promptly removed it as hibernate was going to take too much time to clean up.
-  * Since I was working on the business code at this point, I needed to write a series of tests
-to know when it started working. Since the project came with some nice business-flavor text, it
-was probably best to use Cucumber.
-  * Unfortunately Cucumber deprecated its own annotations and started using the Junit5 Suite annotations,
-so that took more time than expected.
-  * It doesn't look like there's an external interface for using the services like a REST API, so it's an
-application with no starting point. I'm tempted to add one, but it doesn't look like
-I can make assumptions about the interface.
-  * 
+  * Separated business logic from data entities
+  * Replaced initial data storage with in memory lists. Due to time constraints, in memory lists for test purposes
+were chosen over actual databases like H2 or embedded postgres.
+  * Removed discount logic in entities and services and separated it into the Discount interface and DiscountService.
+  * Setup springboot to help inject Discount interface implementations
+  * Setup cucumber to test business scenarios
+  * Replaced Junit4 with Junit5
+  * Moved print logic to separate service and added Jackson for json stringify abilities
+  * Replaced String codes with enums for Movie Codes
+  * Added discount codes to store discount related information
+  * Added new discount requirements
+  * Added cucumber tests for multiple discount qualifications
+  * Added unit tests for individual discount logic
+  * Added unit tests for filtering logic in various repositories and services
